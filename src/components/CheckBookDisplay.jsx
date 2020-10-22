@@ -1,15 +1,21 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { GlobalContext } from '../context/GlobalState';
 
 const CheckBookDisplay = () => {
+    const { transactions } = useContext(GlobalContext)
+    const amountsArray = transactions.map(transaction => transaction.amount)
+    const income = amountsArray.filter(amt => amt > 0).reduce((total, amount) => (total += amount), 0).toFixed(2)
+    const expenses = amountsArray.filter(amt => amt < 0).reduce((total, amount) => (total += amount),0).toFixed(2)
+
     return (
-        <div className="inc-exp-container">
+        <div className="display-container" >
             <div>
-            <h4>Income</h4>
-            <p id="money-plus" className="money-plus">+0.00</p>
+                <h4>Income</h4>
+                <p className="money plus">{income}</p>
             </div>
             <div>
                 <h4>Expenses</h4>
-                <p id="money-minus" className="money-minus">-$0.00</p>
+    <p className='money minus'>{expenses}</p>
             </div>
         </div>
     )
