@@ -3,7 +3,7 @@ import { GlobalContext } from '../context/GlobalState';
 
 const EntryForm = () => {
     const [text, setText] = useState('')
-    const [amount, setAmount] = useState(0)
+    const [amount, setAmount] = useState()
     const {addTransaction} = useContext(GlobalContext)
 
     const onSubmit = e => {
@@ -11,9 +11,11 @@ const EntryForm = () => {
         const newTransaction = {
             id: Math.floor(Math.random() * 1000000),
             text,
-            amount: +amount 
+            amount: +amount
         }
         addTransaction(newTransaction)
+        setText('')
+        setAmount(0)
     }
 
     return (
